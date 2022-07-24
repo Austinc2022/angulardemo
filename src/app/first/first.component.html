@@ -1,0 +1,71 @@
+<div>
+    <header>
+      <h5>Select your squad to defend your earthrealm</h5>
+    </header>
+    <div>
+      <mat-card>
+        <input matInput placeholder="Search Name" (keyup)="setSearchString($event)">
+      </mat-card>
+    </div>
+    <div>
+      <mat-card>
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of getAllTags()" 
+            (click)="setSelectedTag(tag)"
+            [selected]="selectedTag == tag"
+            [color]="selectedTag == tag ? 'primary' : 'accent'"
+          >
+            {{ tag }}
+          </mat-chip>
+        </mat-chip-list>
+        </mat-card>
+        <mat-card>
+        <button id="basic" type="button" mat-button (click)="resetCharacters()">
+          Clear All
+        </button>
+      </mat-card>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <td>#</td>
+          <td>Name</td>
+          <td>Universe</td>
+          <td>Tags</td>
+          <td>Mobility</td>
+          <td>Technique</td>
+          <td>Survivability</td>
+          <td>Power</td>
+          <td>Energy</td>
+        </thead>
+        <tr *ngFor="let hero of characters; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <img mat-card-sm-image class="avatar" [src]="hero.thumbnail" [alt]="hero.name" /><br/>
+            {{ hero.name }} 
+          </td>
+          <td>{{ hero.universe }}</td>
+          <td>
+            <mat-chip *ngFor="let tag of hero.tags;">{{ tag.tag_name }}</mat-chip>
+          </td>
+          <td>
+            <label [ngStyle]="{'color': findAbility(hero, 'Mobility') >= 10 ? 'red' : null}">{{ findAbility(hero, 'Mobility') }}</label>
+          </td>
+          <td>
+            <label [ngStyle]="{'color': findAbility(hero, 'Technique') >= 10 ? 'red' : null}">{{ findAbility(hero, 'Technique') }}</label>
+          </td>
+          <td>
+            <label [ngStyle]="{'color': findAbility(hero, 'Survivability') >= 10 ? 'red' : null}">{{ findAbility(hero, 'Survivability') }}</label>
+          </td>
+          <td>
+            <label [ngStyle]="{'color': findAbility(hero, 'Power') >= 10 ? 'red' : null}">{{ findAbility(hero, 'Power') }}</label>
+          </td>
+          <td>
+            <label [ngStyle]="{'color': findAbility(hero, 'Energy') >= 10 ? 'red' : null}">{{ findAbility(hero, 'Energy') }}</label>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  
